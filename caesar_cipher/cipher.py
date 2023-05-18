@@ -1,4 +1,11 @@
 import string
+import re
+import nltk
+
+nltk.download('words', quiet='True')
+nltk.download('names', quiet='True')
+
+from nltk.corpus import words, names
 
 
 def encrypt(plaintext, key):
@@ -49,12 +56,32 @@ def decrypt(ciphertext, key):
 
 
 def crack(ciphertext):
-    pass
+
+    percent_english = float()
+    key = 0
+    phrase = str()
+
+    while percent_english < .9 and key < 26:
+        phrase = decrypt(ciphertext, key)
+        percent_english = calc_percent_english(phrase)
+
+    return phrase
 
 
-def cout_words(text):
-    pass
+def calc_percent_english(phrase):
+    word_list = words.words()
+    name_list = names.words()
 
+    phrase_words_list = phrase.split()
+
+    word_counter = 0
+
+    for word in phrase_words_list:
+        word = re.sub(r"[^A-Za-z]+", "", word)
+        if word.lower in word_list or word in name_list:
+            word_counter += 1
+
+    return word_counter / len(phrase_words_list)
 
 
 if __name__ == "__main__":
