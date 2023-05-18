@@ -34,7 +34,7 @@ def encrypt(plaintext, key):
 
 
 def decrypt(ciphertext, key):
-    pass
+    return encrypt(ciphertext, key * -1)
 
 
 def crack(ciphertext):
