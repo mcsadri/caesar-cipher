@@ -12,14 +12,17 @@ def encrypt(plaintext, key):
     """
     # initialize return value string
     ciphertext = str()
+
     # create translation table for lower case alphabetic characters
     alpha_lower = string.ascii_lowercase
     shifted_lower = alpha_lower[key:] + alpha_lower[:key]
     table_lower = str.maketrans(alpha_lower, shifted_lower)
+
     # create translation table for upper case alphabetic characters
     alpha_upper = string.ascii_uppercase
     shifted_upper = alpha_upper[key:] + alpha_upper[:key]
     table_upper = str.maketrans(alpha_upper, shifted_upper)
+
     # for each character in the plaintext phrase to be encrypted
     for char in plaintext:
         # test if character is alphabetic
@@ -29,16 +32,29 @@ def encrypt(plaintext, key):
         # join un-modified non-alphabetic character to return value
         else:
             ciphertext += char
+
     # return encrypted phrase
     return ciphertext
 
 
 def decrypt(ciphertext, key):
+    """
+    takes in a ciphertext phrase and a numeric shift key. the phrase is shifted that many letters to decrypt it
+    :param ciphertext: string, representing the phrase to be decrypted
+    :param key: int, representing the number places to unshift the alphabet for decryption
+    :return: string, representing the decypted phrase
+    """
+    # call the encrpyt() method and pass it the ciphertext phrase, and the shift key * 1 (to perform the unshift)
     return encrypt(ciphertext, key * -1)
 
 
 def crack(ciphertext):
     pass
+
+
+def cout_words(text):
+    pass
+
 
 
 if __name__ == "__main__":
