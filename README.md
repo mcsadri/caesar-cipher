@@ -33,4 +33,4 @@
 - [ ] encryption should handle upper and lower case letters.
 - [ ] encryption should allow non-alpha characters but ignore them, including white space.
 - [ ] decrypt encrypted version of `It was the best of times, it was the worst of times.` WITHOUT knowing the shift used.
-- [ ] refer to supplied [unit tests](./tests/test_caesar_cipher.py).
+- [ ] refer to supplied [unit tests](./tests/test_cipher.py).
