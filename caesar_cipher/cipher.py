@@ -1,6 +1,14 @@
 import string
 import re
 import nltk
+import ssl
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
 
 nltk.download('words', quiet='True')
 nltk.download('names', quiet='True')
@@ -56,33 +64,55 @@ def decrypt(ciphertext, key):
 
 
 def crack(ciphertext):
+    """
+    takes in an encrypted phrase (without a shift key) and attempts to brute force crack the original plaintext
+    :param ciphertext: ciphertext: string, representing the phrase to be decrypted
+    :return: string, representing the decypted phrase
+    """
 
+    # holds the % value returned by calc_percent_english()
     percent_english = float()
+    # shift key counter
     key = 0
+    # unshifts/decrypted guess phrase
     phrase = str()
 
+    # repeat until percent_english is > 90% or shift key counter iterates through the entire alphabet
     while percent_english < .9 and key < 26:
+        # get decryption guess phrase
         phrase = decrypt(ciphertext, key)
+        # get the success % of the decryption guess phrase
         percent_english = calc_percent_english(phrase)
+        # increment the shift key counter
+        key += 1
 
-    return phrase
+    # if success is at least 90% return the guess phrase
+    if percent_english > .9:
+        return phrase
+    # else return nothing
+    else:
+        return ""
 
 
 def calc_percent_english(phrase):
+    """
+    takes in a phrase and determine the % of words that match known words or names from nltk.corpus
+    :param phrase: string, the phrase of words to be validated against the word/name list
+    :return: float, the % of words in the phrase that match match known words or names
+    """
     word_list = words.words()
     name_list = names.words()
 
     phrase_words_list = phrase.split()
-
     word_counter = 0
 
     for word in phrase_words_list:
         word = re.sub(r"[^A-Za-z]+", "", word)
-        if word.lower in word_list or word in name_list:
+        if word.lower() in word_list or word in name_list:
             word_counter += 1
 
     return word_counter / len(phrase_words_list)
 
 
 if __name__ == "__main__":
-    encrypt("doodah", 3)
+    pass
