@@ -1,8 +1,8 @@
-# caesar-cipher
+# LAB - Class 18
 
-### Author
+## Project: Caesar Cipher
 
-- Manuch Sadri
+## Author: Manuch Sadri
 
 ### Overview
 
@@ -19,7 +19,7 @@
   - [X] E.g. encrypt(‘zzz’,1) would return ‘aaa’.
 - [X] Create a `decrypt` function that takes in encrypted text and numeric shift which will restore the encrypted text back to its original form when correct key is supplied.
 - [X] Create a `crack` function that will decode the cipher so that an encrypted message can be transformed into its original state WITHOUT access to the key.
-- [?] Devise a method for the computer to determine if code was broken with minimal human guidance.
+- [ ] Devise a method for the computer to determine if code was broken with minimal human guidance.
 
 ### Implementation Notes
 
